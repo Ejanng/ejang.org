@@ -2,7 +2,7 @@
 // Database connection settings
 $servername = "sql211.infinityfree.com";
 $username = "if0_37784118";
-$password = "O2PMYruuvbF";
+$password = "xxxxxxxxxxxx";
 $dbname = "if0_37784118_leaveanote";
 
 try {
