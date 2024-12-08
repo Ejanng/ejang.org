@@ -6,6 +6,7 @@
     $db_url = "db/db_connection.php";
     // Main URLs
     $index_url = "index.php";
+    $leave_a_note_url = "leave-a-note.php";
     $galaxy_url = "galaxy.php";
     // Admin URLs
     $login_url = "admin/login.php";
@@ -27,6 +28,7 @@
     // tools folder
     $tools_db_url = "../$db_url";
     $tools_index_url = "../$index_url";
+    $tools_leave_a_note_url = "../$leave_a_note_url";
     $tools_galaxy_url = "../$galaxy_url";
     $tools_login_url = "../$login_url";
     $tools_logout_url = "../$logout_url";
@@ -46,6 +48,7 @@
     // admin folder
     $admin_db_url = "../$db_url";
     $admin_index_url = "../$index_url";
+    $admin_leave_a_note_url = "../$leave_a_note_url";
     $admin_galaxy_url = "../$galaxy_url";
     $admin_login_url = "../$login_url";
     $admin_logout_url = "../$logout_url";
