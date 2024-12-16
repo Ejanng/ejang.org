@@ -1,9 +1,14 @@
 <?php
 // Database connection settings
-$servername = "sql211.infinityfree.com";
-$username = "if0_37784118";
-$password = "xxxxxxxxxxxx";
-$dbname = "if0_37784118_leaveanote";
+// $servername = "sql211.infinityfree.com";
+// $username = "if0_37784118";
+// $password = "xxxxxxxxxxxx";
+// $dbname = "if0_37784118_leaveanote";
+
+$servername = "localhost";
+$username = "root";
+$password = "erin0225";
+$dbname = "leaveanote";
 
 try {
     // Create a new PDO connection
