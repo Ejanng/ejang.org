@@ -16,17 +16,18 @@ try {
     $message = "Could not fetch users: " . $e->getMessage();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Users</title> <!-- Changed the title to reflect all users -->
+    <title>All Users</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #1e272e; /* Dark background */
+            color: #ffffff; /* Light text */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -36,81 +37,113 @@ try {
         }
 
         .form-container {
-            background: white;
+            background-color: #2f3640; /* Slightly lighter dark background */
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             width: 100%;
-            max-width: 700px; /* Set max width of the container to prevent overflow */
+            max-width: 700px;
             text-align: center;
-            overflow: auto; /* Allows scrolling if content overflows */
-            max-height: 90vh; /* Set max height for the container */
+            overflow: auto;
+            max-height: 90vh;
+        }
+
+        h1, h2 {
+            color: #ffffff;
         }
 
         table {
-            width: 80% !important; /* Reduce table width to 80% */
-            margin-top: 20px;
+            width: 100%; /* Full width */
             border-collapse: collapse;
-            overflow-x: auto; /* Allow horizontal scrolling for wide tables */
-            margin-left: auto; /* Center the table horizontally */
-            margin-right: auto; /* Center the table horizontally */
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
+            margin-top: 20px;
+            overflow-x: auto;
+            background-color: #353b48; /* Dark table background */
+            border-radius: 8px;
         }
 
         th, td {
-            padding: 6px 10px !important; /* Reduced padding for a more compact table */
+            padding: 12px 15px;
             text-align: left;
-            font-size: 14px !important; /* Reduced font size for a more compact look */
+            border-bottom: 1px solid #444; /* Subtle border for rows */
         }
 
         th {
-            background-color: #f4f4f4;
+            background-color: #3d3d3d; /* Header background */
+            color: #ffffff;
+        }
+
+        td {
+            color: #ecf0f1; /* Light gray text */
+        }
+
+        tr:nth-child(even) {
+            background-color: #2c3e50; /* Alternating row colors */
+        }
+
+        tr:hover {
+            background-color: #4b5f7a; /* Highlight row on hover */
         }
 
         .form-container button {
-            background-color: #007BFF;
+            background-color: #3498db; /* Blue button */
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .form-container button:hover {
-            background-color: #0056b3;
+            background-color: #2980b9; /* Darker blue on hover */
         }
 
-        /* Media Query for smaller screens */
+        /* Responsive Design */
         @media (max-width: 768px) {
             table {
-                width: 100% !important; /* Make the table width 100% on smaller screens */
+                font-size: 14px;
             }
 
             th, td {
-                padding: 4px 8px !important; /* Reduce padding on smaller screens */
-                font-size: 12px !important; /* Smaller font size */
+                padding: 8px 10px;
             }
 
             .form-container {
-                padding: 15px; /* Less padding for smaller screens */
-                max-width: 100%; /* Ensure the container is not overflowing */
+                padding: 15px;
+                max-width: 90%;
             }
         }
 
-    </style>
+        @media (max-width: 480px) {
+            table {
+                font-size: 12px;
+            }
 
+            th, td {
+                padding: 6px 8px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto; /* Horizontal scroll for small devices */
+                white-space: nowrap;
+            }
+
+            .form-container {
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="form-container">
-        <h1>All Users</h1> <!-- Changed header to reflect all users -->
+        <h1>All Users</h1>
         <?php if ($message): ?>
             <p><?= htmlspecialchars($message) ?></p>
-            <?php $message = ''; // Reset the message ?>
+            <?php $message = ''; ?>
         <?php endif; ?>
-        <h2>List of All Users</h2> <!-- Updated to reflect all users -->
+        <h2>List of All Users</h2>
         <?php if ($users): ?>
             <table>
                 <thead>
@@ -122,7 +155,7 @@ try {
                 <tbody>
                     <?php foreach ($users as $showUser): ?>
                         <tr>
-                            <td><?= htmlspecialchars($showUser['id']) ?></td>
+                            <td><?= htmlspecialchars($showUser['user_id']) ?></td> <!-- Updated key to 'user_id' -->
                             <td><?= htmlspecialchars($showUser['username']) ?></td>
                         </tr>
                     <?php endforeach; ?>
@@ -131,7 +164,7 @@ try {
         <?php else: ?>
             <p>No users found.</p>
         <?php endif; ?>
-        <button onclick="window.location.href='<?php echo $tools_index_url ?>'">Back to Form</button>
+        <button onclick="window.location.href='<?php echo $tools_index_url ?>'">Back to Dashboard</button>
     </div>
 </body>
 </html>

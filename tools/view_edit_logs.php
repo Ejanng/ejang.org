@@ -16,7 +16,6 @@ $stmt->execute();
 $editLogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,45 +25,103 @@ $editLogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 20px;
+            background-color: #121212; /* Dark background */
+            color: #FFFFFF; /* Light text */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
         }
         .container {
-            background: #fff;
+            background: #1E1E1E; /* Dark container background */
             padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 1000px;
+            text-align: center;
+        }
+        h1 {
+            color: #BB86FC; /* Purple header color */
+            margin-bottom: 20px;
+        }
+        p {
+            text-align: center;
+            margin: 15px 0;
+        }
+        a.back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #BB86FC; /* Purple button */
+            color: #FFFFFF;
+            text-decoration: none;
             border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        a.back-button:hover {
+            background-color: #9C4DFF; /* Brighter purple on hover */
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            background-color: #2E2E2E; /* Dark table background */
+            border-radius: 8px;
+            overflow: hidden;
         }
         th, td {
-            padding: 8px;
+            padding: 12px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border: 1px solid #BB86FC; /* Purple border */
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #BB86FC; /* Purple header background */
+            color: #1E1E1E; /* Dark text for headers */
         }
-        .back-button {
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
+        tr:nth-child(even) {
+            background-color: #3A3A3A; /* Slightly darker background for alternate rows */
         }
-        .back-button:hover {
-            background-color: #0056b3;
+        tr:hover {
+            background-color: #4E4E4E; /* Highlight row on hover */
+        }
+        td {
+            color: #FFFFFF; /* White text for table cells */
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 8px;
+            }
+            a.back-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+        @media (max-width: 480px) {
+            table {
+                font-size: 12px;
+            }
+            th, td {
+                padding: 6px;
+            }
+            a.back-button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Edit Logs</h1>
-        <p><a href='<?php echo $tools_index_url ?>' class="back-button">Back to Dashboard</a></p>
+        <p><a href="<?= htmlspecialchars($tools_index_url) ?>" class="back-button">Back to Dashboard</a></p>
         <?php if (count($editLogs) > 0): ?>
             <table>
                 <thead>

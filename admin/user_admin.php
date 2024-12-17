@@ -27,91 +27,136 @@ try {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #121212; /* Dark background */
+            color: #FFFFFF; /* Light text color for readability */
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
             height: 100vh;
-            margin: 0;
+            overflow: hidden;
         }
 
         .form-container {
-            background: white;
+            background: #1E1E1E; /* Dark container background */
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 700px; /* Set max width of the container to prevent overflow */
+            max-width: 800px;
             text-align: center;
-            overflow: auto; /* Allows scrolling if content overflows */
-            max-height: 90vh; /* Set max height for the container */
+            overflow-x: auto; /* Allow horizontal scrolling if necessary */
+        }
+
+        h1 {
+            color: #BB86FC; /* Purple header */
         }
 
         table {
-            width: 80% !important; /* Reduce table width to 80% */
+            width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
-            overflow-x: auto; /* Allow horizontal scrolling for wide tables */
-            margin-left: auto; /* Center the table horizontally */
-            margin-right: auto; /* Center the table horizontally */
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #2E2E2E; /* Dark table background */
         }
 
         table, th, td {
-            border: 1px solid #ddd;
+            border: 1px solid #BB86FC; /* Purple borders */
         }
 
         th, td {
-            padding: 6px 10px !important; /* Reduced padding for a more compact table */
+            padding: 12px 20px;
             text-align: left;
-            font-size: 14px !important; /* Reduced font size for a more compact look */
+            font-size: 14px;
+            color: #FFFFFF;
         }
 
         th {
-            background-color: #f4f4f4;
+            background-color: #333; /* Dark header row */
+        }
+
+        tr:nth-child(even) {
+            background-color: #3A3A3A; /* Slightly lighter rows for alternating colors */
+        }
+
+        tr:hover {
+            background-color: #444; /* Hover effect on rows */
         }
 
         .form-container button {
-            background-color: #007BFF;
+            background-color: #BB86FC; /* Purple button */
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             margin-top: 20px;
+            cursor: pointer;
         }
 
         .form-container button:hover {
-            background-color: #0056b3;
+            background-color: #9C4DFF; /* Lighter purple on hover */
         }
 
-        /* Media Query for smaller screens */
+        /* Mobile responsive design */
         @media (max-width: 768px) {
+            .form-container {
+                width: 90%;
+                padding: 15px;
+            }
+
             table {
-                width: 100% !important; /* Make the table width 100% on smaller screens */
+                font-size: 12px;
+                padding: 8px;
+                overflow-x: auto;
             }
 
             th, td {
-                padding: 4px 8px !important; /* Reduce padding on smaller screens */
-                font-size: 12px !important; /* Smaller font size */
+                font-size: 12px; /* Reduce font size on mobile */
+                padding: 8px; /* Reduce padding on mobile */
             }
 
-            .form-container {
-                padding: 15px; /* Less padding for smaller screens */
-                max-width: 100%; /* Ensure the container is not overflowing */
+            h1 {
+                font-size: 20px;
+            }
+
+            .form-container button {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 18px;
+            }
+
+            table {
+                font-size: 10px; /* Further reduce font size for smaller devices */
+            }
+
+            th, td {
+                padding: 6px;
+                font-size: 10px; /* Adjust padding and font size */
+            }
+
+            .form-container button {
+                padding: 6px 12px;
+                font-size: 12px;
             }
         }
 
     </style>
-
 </head>
 <body>
     <div class="form-container">
-        <h1>All Users</h1> <!-- Changed header to reflect all users -->
+        <h1>All Users</h1>
         <?php if ($message): ?>
             <p><?= htmlspecialchars($message) ?></p>
             <?php $message = ''; // Reset the message ?>
         <?php endif; ?>
-        <h2>List of All Users</h2> <!-- Updated to reflect all users -->
+        <h2>List of All Users</h2>
         <?php if ($users): ?>
             <table>
                 <thead>

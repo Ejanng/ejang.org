@@ -79,7 +79,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
 }
 ?>
 
-<!-- HTML Frontend -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,20 +88,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            background-color: #121212;
+            color: #FFFFFF;
             margin: 0;
             padding: 0;
         }
         .container {
-            width: 80%;
+            width: 90%;
             margin: 20px auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: #1E1E1E;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
         h1, h3 {
-            color: #333;
+            color: #BB86FC;
         }
         form {
             margin-bottom: 30px;
@@ -119,42 +119,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border: 1px solid #ddd;
+            border: 1px solid #BB86FC;
             border-radius: 5px;
+            background-color: #2E2E2E;
+            color: #FFFFFF;
         }
         button {
-            background-color: #007BFF;
+            background-color: #BB86FC;
             color: white;
             border: none;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #9C4DFF;
         }
         .error-message {
-            color: red;
+            color: #FF5252;
             font-size: 14px;
             margin-bottom: 20px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
         table, th, td {
-            border: 1px solid #ddd;
+            border: 1px solid #BB86FC;
         }
         th, td {
             padding: 8px;
             text-align: left;
         }
         th {
-            background-color: #f4f4f4;
+            background-color: #2E2E2E;
         }
         .message {
-            background-color: #dff0d8;
+            background-color: #1B5E20;
             padding: 10px;
-            border: 1px solid #d6e9c6;
-            color: #3c763d;
+            border: 1px solid #388E3C;
+            color: #A5D6A7;
             margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 15px;
+            }
+            input, textarea, button {
+                font-size: 14px;
+            }
+            th, td {
+                font-size: 12px;
+            }
         }
     </style>
 </head>

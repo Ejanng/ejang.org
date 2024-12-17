@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include '../config.php'; // Include database config
 require $tools_db_url;   // Ensure database connection is established
 
@@ -15,7 +11,6 @@ define('HASHTABLE_SIZE', 10);  // Using 10 for simplicity in this example
 
 // Hash function to generate an index for the username
 function hashUsername($username) {
-    // A simple hash function (you can use other hash functions like md5, sha1, etc.)
     return crc32($username) % HASHTABLE_SIZE;
 }
 
@@ -60,43 +55,69 @@ try {
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            background-color: #121212; /* Dark background */
+            color: #ffffff; /* White text */
+            margin: 0;
             padding: 20px;
-            background-color: #f5f5f5;
         }
         h1 {
             text-align: center;
+            color: #BB86FC; /* Purple header color */
+            margin-bottom: 20px;
         }
         .hashtable {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
+            gap: 15px;
         }
         .bucket {
             padding: 10px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            min-height: 50px;
+            background: #1E1E1E; /* Bucket background */
+            border: 1px solid #444; /* Border color */
+            border-radius: 8px;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
         .bucket span {
             display: block;
-            padding: 5px;
-            background-color: #007BFF;
-            color: white;
-            border-radius: 3px;
-            margin-bottom: 5px;
+            padding: 5px 10px;
+            background-color: #BB86FC; /* Purple bucket label */
+            color: #121212; /* Dark text */
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
         .bucket .messages {
+            width: 100%;
             margin-top: 10px;
             padding-left: 10px;
         }
         .message {
-            background: #f1f1f1;
+            background: #2E2E2E; /* Darker message background */
             margin: 5px 0;
-            padding: 5px;
-            border-radius: 3px;
-            border: 1px solid #ddd;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #555; /* Border for messages */
+            color: #ffffff;
+        }
+        .message:hover {
+            background-color: #444; /* Hover effect */
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #BB86FC;
+            color: #121212;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+        a:hover {
+            background-color: #9C4DFF;
         }
     </style>
 </head>
@@ -123,5 +144,6 @@ try {
         }
         ?>
     </div>
+    <a href="search.php">Search Messages</a>
 </body>
 </html>

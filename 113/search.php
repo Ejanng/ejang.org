@@ -10,7 +10,6 @@ define('HASHTABLE_SIZE', 100);
 
 // Hash function to generate an index for the username
 function hashUsername($username) {
-    // A simple hash function (you can use other hash functions like md5, sha1, etc.)
     return crc32($username) % HASHTABLE_SIZE;
 }
 
@@ -26,17 +25,11 @@ try {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $username = $row['username'];
         $text = $row['text'];
-
-        // Compute the hash index for the username
         $index = hashUsername($username);
 
-        // Check if the bucket is empty
         if ($hashtable[$index] === null) {
-            // Initialize a new linked list for this index if empty
             $hashtable[$index] = new LinkedList();
         }
-
-        // Append the message to the linked list at the computed index
         $hashtable[$index]->append($text);
     }
 } catch (PDOException $e) {
@@ -50,14 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['query'])) {
     $query = trim($_POST['query']);
 
     if (!empty($query)) {
-        // Search through the hashtable
         for ($i = 0; $i < HASHTABLE_SIZE; $i++) {
             if ($hashtable[$i] !== null) {
-                $messages = $hashtable[$i]->toArray(); // Convert linked list to array for searching
+                $messages = $hashtable[$i]->toArray();
                 foreach ($messages as $message) {
-                    if (stripos($message, $query) !== false) { // Case-insensitive search
+                    if (stripos($message, $query) !== false) {
                         $searchResults[] = [
-                            'username' => "Unknown", // Username will be deduced later
+                            'username' => "Unknown",
                             'text' => $message
                         ];
                     }
@@ -79,40 +71,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['query'])) {
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            background-color: #121212; /* Dark background */
+            color: #ffffff; /* White text */
+            margin: 0;
             padding: 20px;
-            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #BB86FC; /* Purple header color */
         }
         form {
+            background-color: #1E1E1E; /* Form container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             margin-bottom: 20px;
-            padding: 10px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        }
+        form h2 {
+            color: #BB86FC;
         }
         input[type="text"] {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 1px solid #BB86FC;
+            border-radius: 5px;
+            background-color: #2E2E2E;
+            color: #ffffff;
         }
         input[type="submit"] {
-            background-color: #007BFF;
-            color: #fff;
+            background-color: #BB86FC;
+            color: #1E1E1E;
             border: none;
-            padding: 10px 15px;
+            padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
         input[type="submit"]:hover {
-            background-color: #0056b3;
+            background-color: #9C4DFF;
         }
         .results {
-            padding: 10px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            background-color: #1E1E1E;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .results h2 {
+            color: #BB86FC;
+            margin-bottom: 10px;
         }
         .results ul {
             list-style-type: none;
@@ -121,9 +128,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['query'])) {
         .results li {
             margin: 10px 0;
             padding: 10px;
-            background: #f9f9f9;
-            border: 1px solid #eee;
+            background-color: #2E2E2E;
+            border: 1px solid #444;
             border-radius: 5px;
+            color: #ffffff;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #BB86FC;
+            color: #1E1E1E;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #9C4DFF;
         }
     </style>
 </head>
@@ -156,5 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['query'])) {
             <?php endif; ?>
         </div>
     <?php endif; ?>
+    <a href="visual.php">Go to Visual</a>
+    <a href="/ejang.org/leave-a-note.php">Go to Main Page</a>
 </body>
 </html>

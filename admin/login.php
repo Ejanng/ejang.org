@@ -1,9 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-session_start();
+session_start(); // Initialize sessions
 include '../config.php'; // Include the config file
-require $admin_db_url; // Ensure this file connects to your database
+require $admin_db_url; // Database connection
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
@@ -19,22 +17,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Check if the user exists and verify the password
         if ($user && password_verify($password, $user['pass'])) {
             // Store user details in session
-            $_SESSION['id'] = $user['id'];                  // User's ID
-            $_SESSION['username'] = $user['username'];      // Username
-            $_SESSION['role'] = $user['role'];              // User role
-            $_SESSION['date_created'] = $user['date_created']; // Account creation date
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role'] ?? null; // Avoid undefined role
+            $_SESSION['date_created'] = $user['date_created'];
 
-            // Redirect to index.php after successful login
-            header("Location: $admin_index_url");
+            // Redirect to the admin page
+            header("Location: $admin_leave_a_note_url");
             exit;
         } else {
-            $error = "Invalid username or password."; // Incorrect login details
+            $error = "Invalid username or password."; // Incorrect credentials
         }
     } catch (Exception $e) {
         $error = "An error occurred: " . $e->getMessage(); // Handle exceptions
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,51 +51,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #121212; /* Dark mode background */
+            color: #FFFFFF; /* Light text for readability */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
+            padding: 0;
         }
         .login-container {
-            background: #fff;
+            background: #1E1E1E; /* Dark container background */
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
         }
         .login-container h1 {
-            text-align: center;
+            color: #BB86FC; /* Purple header */
             margin-bottom: 20px;
-            color: #333;
+        }
+        .login-container p {
+            color: #BB86FC; /* Purple text for additional info */
+            font-size: 14px;
         }
         .login-container input[type="text"],
-        .login-container input[type="password"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #2E2E2E; /* Dark input background */
+            color: #FFFFFF; /* Light text */
+            border: 1px solid #BB86FC; /* Purple border */
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .login-container input[type="text"]::placeholder,
+        .login-container input[type="password"]::placeholder {
+            color: #AAAAAA; /* Placeholder color */
+        }
         .login-container button {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .login-container button {
-            background-color: #007BFF;
-            color: white;
+            padding: 12px;
+            background-color: #BB86FC; /* Purple button */
+            color: #FFFFFF;
             border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
         }
         .login-container button:hover {
-            background-color: #0056b3;
+            background-color: #9C4DFF; /* Brighter purple on hover */
         }
         .error {
-            color: red;
+            color: #FF5252; /* Red for error messages */
             font-size: 14px;
-            text-align: center;
+            margin-bottom: 10px;
         }
         .corner-button {
             position: fixed;
             top: 20px;
             right: 20px;
-            background-color: #28a745;
+            background-color: #28a745; /* Green button */
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
@@ -105,9 +124,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transition: background-color 0.3s ease;
             z-index: 1000; /* Ensure it stays on top */
         }
-
         .corner-button:hover {
-            background-color: #218838;
+            background-color: #218838; /* Darker green on hover */
+        }
+
+        /* Mobile responsive design */
+        @media (max-width: 768px) {
+            .login-container {
+                width: 90%;
+                padding: 15px;
+            }
+            .login-container h1 {
+                font-size: 20px;
+            }
+            .login-container input[type="text"],
+            .login-container input[type="password"] {
+                font-size: 12px;
+            }
+            .login-container button {
+                font-size: 12px;
+                padding: 10px;
+            }
+            .corner-button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container h1 {
+                font-size: 18px;
+            }
+            .corner-button {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
         }
     </style>
 </head>
@@ -118,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p class="error"><?= htmlspecialchars($error); ?></p>
         <?php endif; ?>
         <form action="login.php" method="POST">
-            <p>Do not Log in if you're not amdin!</p>
+            <p>Only Admins can Access this platform!</p>
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>

@@ -47,20 +47,7 @@ $conn = null;
                 window.scrollTo(0, parseInt(scrollPosition, 10)); // Scroll to the saved position
                 localStorage.removeItem("scrollPosition"); // Optional: Clean up storage
             }
-
-            // Restore dark mode preference
-            const isDarkMode = localStorage.getItem("darkMode") === "true";
-            if (isDarkMode) {
-                document.body.classList.add("dark-mode");
-            }
         };
-
-        // Toggle dark mode
-        function toggleDarkMode() {
-            const body = document.body;
-            const isDarkMode = body.classList.toggle("dark-mode");
-            localStorage.setItem("darkMode", isDarkMode); // Save preference
-        }
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,8 +62,8 @@ $conn = null;
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #121212;
+            color: #ffffff;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -86,15 +73,15 @@ $conn = null;
 
         h1 {
             margin-bottom: 20px;
-            color: #2c3e50;
+            color: #BB86FC;
         }
 
         .table-container {
             width: 80%;
             max-width: 900px;
-            background-color: #fff;
+            background-color: #1E1E1E;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
             overflow: hidden;
             padding: 20px;
         }
@@ -102,7 +89,7 @@ $conn = null;
         .table-wrapper {
             max-height: 400px;
             overflow-y: auto;
-            border: 1px solid #ddd;
+            border: 1px solid #444;
         }
 
         table {
@@ -113,121 +100,82 @@ $conn = null;
         th, td {
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #444;
         }
 
         th {
-            background-color: #3498db;
-            color: #fff;
+            background-color: #2E2E2E;
+            color: #BB86FC;
             position: sticky;
             top: 0;
             z-index: 1;
         }
 
         tr:nth-child(even) {
-            background-color: #ecf0f1;
+            background-color: #353b48;
         }
 
         tr:hover {
-            background-color: #dfe6e9;
+            background-color: #9C4DFF;
         }
 
         .button-container {
             display: flex;
             justify-content: center; /* Centers the buttons horizontally */
             gap: 20px; /* Adds space between the buttons */
+            margin-top: 20px;
         }
 
         .back-button {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #3498db;
+            background-color: #BB86FC;
             color: white;
             text-decoration: none;
             border-radius: 5px;
         }
 
         .back-button:hover {
-            background-color: #2980b9;
+            background-color: #9C4DFF;
         }
+
         @media (max-width: 768px) {
+            /* Adjust table container for smaller screens */
             .table-container {
                 width: 95%;
+                padding: 10px;
+            }
+
+            /* Smaller table headers and cells for mobile */
+            th, td {
+                padding: 8px;
+                font-size: 12px;
+            }
+
+            /* Adjust buttons for smaller screens */
+            .back-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* For very small screens, allow table scrolling */
+            .table-wrapper {
+                overflow-x: auto;
+            }
+
+            table {
+                font-size: 14px; /* Smaller font for readability */
             }
 
             th, td {
-                padding: 8px;
+                padding: 6px;
             }
-
-            .back-button {
-                padding: 8px 16px;
-            }
-        }
-
-        /* Dark mode styles */
-        body.dark-mode {
-            background-color: #1e272e;
-            color: #ffffff;
-        }
-
-        .dark-mode table {
-            background-color: #2c2c2c;
-            color: #ffffff;
-            border-color: #444;
-        }
-
-        .dark-mode th {
-            background-color: #3d3d3d;
-            color: #ffffff;
-        }
-
-        .dark-mode tr:nth-child(even) {
-            background-color: #353b48;
-        }
-
-        .dark-mode tr:hover {
-            background-color: #4b5f7a;
-        }
-
-        .dark-mode-button {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 10px 15px;
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            z-index: 1000;
-        }
-
-        .dark-mode-button:hover {
-            background-color: #2980b9;
-        }
-
-        /* Dark mode toggle button */
-        .dark-mode-button {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 10px 15px;
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            z-index: 1000;
-        }
-
-        .dark-mode-button:hover {
-            background-color: #2980b9;
         }
     </style>
 </head>
-<body>
+<body class="dark-mode">
     <h1>All Notes</h1>
     <div class="table-container">
         <?php if (count($messages) > 0): ?>
@@ -257,8 +205,6 @@ $conn = null;
             <p>No messages found!</p>
         <?php endif; ?>
     </div>
-    <!-- Conditionally show the delete button -->
-    <!-- Show delete button only if the user is an admin -->
     <div class="button-container">
         <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
             <a class="back-button" href='<?php echo $tools_delete_url ?>'>Delete a Data?</a>
@@ -266,6 +212,5 @@ $conn = null;
         <?php endif; ?>
         <a class="back-button" href='<?php echo $tools_index_url ?>'>Back to Form</a>
     </div>
-    <button class="dark-mode-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 </body>
 </html>

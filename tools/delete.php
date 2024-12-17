@@ -67,45 +67,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #121212; /* Dark background */
+            color: #FFFFFF; /* White text */
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
         .form-container {
-            background: white;
+            background: #1E1E1E; /* Dark container background */
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 400px;
         }
         .form-container h1 {
             text-align: center;
-            color: #333;
+            color: #BB86FC; /* Light purple text */
         }
         .form-container form {
             margin-top: 20px;
+        }
+        .form-container label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
         }
         .form-container input[type="number"],
         .form-container button {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border: 1px solid #ddd;
+            border: 1px solid #BB86FC;
             border-radius: 5px;
+            background-color: #2E2E2E; /* Dark input fields */
+            color: #FFFFFF;
         }
         .form-container button {
-            background-color: #007BFF;
+            background-color: #BB86FC; /* Purple button */
             color: white;
             border: none;
             cursor: pointer;
         }
         .form-container button:hover {
-            background-color: #0056b3;
+            background-color: #9C4DFF; /* Lighter purple on hover */
         }
         .message {
             text-align: center;
@@ -114,6 +122,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         .error {
             color: red;
+        }
+        @media (max-width: 768px) {
+            .form-container {
+                width: 90%;
+                padding: 15px;
+            }
+            .form-container h1 {
+                font-size: 18px;
+            }
+            .form-container input[type="number"],
+            .form-container button {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -125,6 +146,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="number" name="id" id="id" placeholder="Enter ID" required>
             <button type="submit">Delete</button>
         </form>
+        <div class="message">
+            <?php if (isset($message)) echo $message; ?>
+        </div>
         <a href='<?php echo $tools_view_data_url ?>'>
             <button>View All Data</button>
         </a>

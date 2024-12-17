@@ -47,6 +47,7 @@ try {
         }
 
         /* Star styling */
+        /* Default star size for larger screens */
         .star {
             position: absolute;
             background-color: white;
@@ -58,6 +59,14 @@ try {
 
         .star:hover {
             transform: scale(1.3);
+        }
+
+        /* Reduce star size for mobile users */
+        @media (max-width: 768px) {
+            .star {
+                width: 5px !important; /* Smaller size */
+                height: 5px !important; /* Smaller size */
+            }
         }
 
         /* Animations for color and size transitions */
