@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy New Year!</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    h1 {
+      position: absolute;
+      top: 20px;
+      font-size: 3rem;
+      color: gold;
+      text-shadow: 0 0 20px orange, 0 0 40px red;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy New Year!</h1>
+  <canvas id="fireworkCanvas"></canvas>
+  <script src="fireworks.js"></script>
+</body>
+</html>
